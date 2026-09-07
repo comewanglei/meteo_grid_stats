@@ -52,7 +52,7 @@ from .engine import (
 
 class StatisticsTask(QgsTask):
     def __init__(self, options, callback):
-        super().__init__("气象格点分区统计", QgsTask.CanCancel)
+        super().__init__("气象格点分区统计", QgsTask.Flag.CanCancel)
         self.options, self.callback = options, callback
         self.result = None
         self.error = None
@@ -91,7 +91,7 @@ class StatisticsDialog(QDialog):
         self.sources = QComboBox()
         self.sources.setMinimumContentsLength(30)
         self.sources.setSizeAdjustPolicy(
-            QComboBox.AdjustToMinimumContentsLengthWithIcon
+            QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon
         )
         self.sources.currentIndexChanged.connect(self.load_bands)
         form.addRow("变量 / 子数据集", self.sources)
@@ -184,9 +184,11 @@ class StatisticsDialog(QDialog):
         self.summary.setWordWrap(True)
         result_layout.addWidget(self.summary)
         self.table = QTableWidget()
-        self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.table.setEditTriggers(
+            QAbstractItemView.EditTrigger.NoEditTriggers
+        )
         self.table.horizontalHeader().setSectionResizeMode(
-            QHeaderView.ResizeToContents
+            QHeaderView.ResizeMode.ResizeToContents
         )
         result_layout.addWidget(self.table, 2)
         result_layout.addWidget(QLabel("提醒（完整记录见 .warnings.json）"))
@@ -285,8 +287,8 @@ class StatisticsDialog(QDialog):
                     info["unit"],
                 )
                 item = QListWidgetItem(label)
-                item.setData(Qt.UserRole, info["band"])
-                item.setCheckState(Qt.Checked)
+                item.setData(Qt.ItemDataRole.UserRole, info["band"])
+                item.setCheckState(Qt.CheckState.Checked)
                 item.setToolTip(
                     label + ("\n" + info["warning"] if info["warning"] else "")
                 )
@@ -297,7 +299,7 @@ class StatisticsDialog(QDialog):
     def check_bands(self, checked):
         for i in range(self.bands.count()):
             self.bands.item(i).setCheckState(
-                Qt.Checked if checked else Qt.Unchecked
+                Qt.CheckState.Checked if checked else Qt.CheckState.Unchecked
             )
 
     def browse_vector(self):
@@ -410,9 +412,9 @@ class StatisticsDialog(QDialog):
     def start_task(self):
         try:
             bands = [
-                self.bands.item(i).data(Qt.UserRole)
+                self.bands.item(i).data(Qt.ItemDataRole.UserRole)
                 for i in range(self.bands.count())
-                if self.bands.item(i).checkState() == Qt.Checked
+                if self.bands.item(i).checkState() == Qt.CheckState.Checked
             ]
             stats = tuple(
                 name
