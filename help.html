@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Meteo Grid Statistics Help</title></head>
+<body>
+<h1>Meteo Grid Statistics</h1>
+<p>QGIS 3 polygon statistics for meteorological NetCDF, GRIB and GeoTIFF grids.</p>
+<h2>Quick start / 使用步骤</h2>
+<ol>
+<li><b>格点文件</b>: Browse to a raster, then select a variable/subdataset.</li>
+<li><b>时间 / 波段</b>: Check the time steps/bands to process.</li>
+<li><b>面矢量文件</b>: Choose a polygon file, its layer and an identifier field.</li>
+<li><b>统计指标</b>: Select count, minimum, maximum, mean, median, sum, population standard deviation, population variance or range.</li>
+<li><b>合理值范围</b>: Optional limits use decoded values after scale/offset. Out-of-range values are excluded by default. NaN/Inf and NoData are always excluded.</li>
+<li><b>导出格式 / 输出路径</b>: Choose GeoJSON, Shapefile or CSV and a new filename. Existing files are not overwritten.</li>
+<li><b>开始统计</b>: Run in the background. Use <b>取消任务</b> to cancel.</li>
+</ol>
+<p>默认按像元中心归属，结果为“面 × 波段”长表。结果坐标系为 EPSG:4326。缺失 CRS 的规则经纬度 NetCDF 会推定 WGS84，并在定位说明和 .warnings.json 中提醒。</p>
+<h2>Results and assumptions</h2>
+<p>One row per valid polygon and band. NoData is excluded; a polygon with no valid cells has count 0 and null statistics. Invalid geometry and non-polygons are skipped with a warning. Overlapping polygons are independent, holes are excluded and statistics are not area weighted.</p>
+<p>Geometry is transformed to the raster CRS for calculation; exported geometry is EPSG:4326. Recovered NetCDF coordinates are treated as cell centers. A missing CRS is assumed WGS84 only for recognizable regular geographic coordinate arrays, with explicit warnings. No time is invented from filenames.</p>
+<p>Preview shows up to 500 rows and warnings; exports and the companion .warnings.json are complete. CSV includes WKT; Shapefile contains short field names and UTF-8 sidecars.</p>
+<h2>Limits and troubleshooting</h2>
+<ul>
+<li>Exact median: maximum 5,000,000 valid cells per polygon. Disable median for larger zones.</li>
+<li>Curvilinear/irregular grids are unsupported. Split polygons crossing the date line or the 0/360 seam before processing.</li>
+<li>Missing GDAL/OGR or NumPy: repair the QGIS installation. Do not install packages into an unrelated Python environment.</li>
+<li>Recovered map layers use a temporary GeoTIFF. Save that raster permanently before relying on a saved project.</li>
+<li>The plugin makes no network requests and requires no cloud account. Detailed task errors appear in this window.</li>
+</ul>
+<h2>Small example</h2>
+<p>Inside the installed plugin folder, open samples/grid.asc and samples/zones.geojson. Select the name field and all statistics. The “full” polygon contains values 1–16: count 16, mean 8.5, median 8.5, sum 136, population variance 21.25. The “outside” polygon has no data and triggers NO_PIXELS.</p>
+<p>Source code and bundled synthetic examples are GPL-3.0-or-later. See LICENSE and README.en.md. Report problems through the plugin's metadata issue tracker once a public release has been configured.</p>
+</body></html>

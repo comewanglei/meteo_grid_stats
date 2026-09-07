@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+  <title>Meteo Grid Statistics</title>
+  <desc>A sun and a meteorological grid beside a graduated statistical ruler on a navy tile.</desc>
+  <rect x="2" y="2" width="60" height="60" rx="13" fill="#123e58"/>
+  <!-- Sun: weather context, separated from the data grid. -->
+  <g stroke="#ffd166" stroke-width="2.5" stroke-linecap="round">
+    <path d="M20 7v2M20 25v2M10 17h2M28 17h2"/>
+    <path d="m13 10 1.5 1.5m11 11L27 24m-14 0 1.5-1.5m11-11L27 10"/>
+  </g>
+  <circle cx="20" cy="17" r="5.5" fill="#ffd166"/>
+  <!-- Warm-to-cool cells suggest meteorological raster values. -->
+  <g>
+    <rect x="10" y="32" width="6" height="6" rx="1" fill="#ffd166"/>
+    <rect x="18" y="32" width="6" height="6" rx="1" fill="#e5bf72"/>
+    <rect x="26" y="32" width="6" height="6" rx="1" fill="#75c9c1"/>
+    <rect x="10" y="40" width="6" height="6" rx="1" fill="#e5bf72"/>
+    <rect x="18" y="40" width="6" height="6" rx="1" fill="#75c9c1"/>
+    <rect x="26" y="40" width="6" height="6" rx="1" fill="#48a6bd"/>
+    <rect x="10" y="48" width="6" height="6" rx="1" fill="#75c9c1"/>
+    <rect x="18" y="48" width="6" height="6" rx="1" fill="#48a6bd"/>
+    <rect x="26" y="48" width="6" height="6" rx="1" fill="#34839f"/>
+  </g>
+  <!-- Alternating ticks communicate measurement; the coral mark highlights a value. -->
+  <rect x="39" y="10" width="17" height="45" rx="3" fill="#f4f8fa"/>
+  <g stroke="#123e58" stroke-width="2.5" stroke-linecap="round">
+    <path d="M40 17h7M40 24h4M40 31h7M40 38h4M40 45h7"/>
+  </g>
+  <path d="m52 27-5 4 5 4Z" fill="#f46b55"/>
+</svg>
