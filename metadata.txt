@@ -6,7 +6,7 @@ about=Compute statistics for each polygon and selected band/time, report missing
  Supports regular affine grids and one-dimensional regular NetCDF latitude/longitude arrays. Missing NetCDF CRS is explicitly reported as assumed WGS84. Curvilinear grids are not supported.
  Exact median is limited to five million valid cells per polygon; other statistics are computed in blocks. The interface is Chinese, with English help and documentation. QGIS 4 is not yet supported.
 license=GPL-3.0-or-later
-version=0.1.5
+version=1.0.0
 qgisMinimumVersion=3.22
 qgisMaximumVersion=3.99
 author=wanglei
@@ -16,7 +16,7 @@ repository=https://github.com/comewanglei/meteo_grid_stats
 tracker=https://github.com/comewanglei/meteo_grid_stats/issues
 category=Raster
 icon=icon.svg
-experimental=True
+experimental=False
 deprecated=False
 server=False
 hasProcessingProvider=False
